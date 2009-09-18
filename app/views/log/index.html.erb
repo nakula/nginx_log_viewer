@@ -1,0 +1,22 @@
+<html>
+	<head>
+		<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+		<title>index.html</title>
+	
+	</head>
+
+	<body id="" onload="">
+		<table border="0" cellspacing="0" cellpadding="0">
+			<tr><th>Crawler</th><th>Access From log</th><th>non 200 from log</th><th>From db today</th><th>from db yesterday</th></tr>
+			<% ROBOTLIST.each do |robot| -%>
+				<tr>
+					<td><a href='/show/<%= robot -%>'><%= robot -%></a></td>
+					<td><%= @log_count[robot][:now] -%></td>
+					<td><%= @log_count[robot][:now_errors] -%></td>
+					<td><a href='/show/<%= robot -%>?db=today'><%= @log_count[robot][:today] -%></a></td>
+					<td><a href='/show/<%= robot -%>?db=yesterday'><%= @log_count[robot][:yesterday] -%></a></td>
+				</tr>
+			<% end -%>
+		</table>
+	</body>
+</html>

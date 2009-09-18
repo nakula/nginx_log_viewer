@@ -1,0 +1,38 @@
+<html>
+	<head>
+		<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+		<title>show.html</title>
+	
+	</head>
+
+	<body id="" onload="">
+		<table border="0" cellspacing="5" cellpadding="5">
+			<tr>
+				<th>Date</th><th>total</th><th>non 200</th><th>error</th>
+				<% ['Googlebot', 'msnbot', 'slurp'].each do |c| -%>
+					<th><%= c -%></th><th>non 200</th><th>error</th>
+				<% end -%>
+			</tr>
+			<% @stat.keys.each do |key| -%>
+				<tr>
+					<td><%= key -%></td>
+					<td><%= @stat[key][0] -%></td>
+					<td><%= @stat[key][1] -%></td>
+					<td><a href='/log/detailed_view?date=<%=key-%>&amp;error=true'><%= @stat[key][2] -%></a></td>
+					
+					<td><%= @stat[key][3] -%></td>
+					<td><%= @stat[key][4] -%></td>					
+					<td><%= @stat[key][5] -%></td>
+					
+					<td><%= @stat[key][6] -%></td>					
+					<td><%= @stat[key][7] -%></td>
+					<td><%= @stat[key][8] -%></td>					
+					
+					<td><%= @stat[key][9] -%></td>
+					<td><%= @stat[key][10] -%></td>
+					<td><%= @stat[key][11] -%></td>					
+				</tr>
+			<% end -%>
+		</table>
+	</body>
+</html>

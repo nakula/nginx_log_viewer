@@ -1,0 +1,62 @@
+<html>
+	<head>
+		<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+<style>
+.tabledouble {font-family:'lucida Grande';border:1px solid #CCCCCC;font-size:12px;margin:5px 10px 0;text-align:left;width:98%;}
+.tabledivider {background-color:#CCCCCC;height:1px;padding:0;}
+</style>
+		<title>show.html</title>
+	
+	</head>
+
+	<body id="" onload="">
+		<h3>Non 200 Pages</h3>
+		
+		<table border="0" class='tabledouble' cellspacing="0" cellpadding="5" >
+			<% @error_reqs.each do |req| -%>
+				<tr>
+				<% cols = req.split('|') -%>
+<td><%= cols[0] -%></td>
+<td><%= cols[1] -%></td>
+<td><%= cols[3].gsub('"','') -%></td>
+<td><%= cols[4] -%></td>
+<td><%= cols[5] -%></td>
+<td width="700"><%= cols[2] -%></td>
+				<% cols.map{|x| "<td>#{x}</td>"}.join("") -%>
+				</tr>
+<tr><td class="tabledivider" colspan="10"/></tr>
+			<% end -%>
+		</table>
+
+		<h3>All Pages</h3>
+<a href="javascript:void(0);" id="404p">404</a>
+<a href="javascript:void(0);" id="499p">499</a>
+<a href="javascript:void(0);" id="tagp">tags</a>
+<br/>
+<div id='message'></div>
+		<table border="0" class='tabledouble' cellspacing="0" cellpadding="5">
+			<% @all_reqs.each do |req| -%>
+				<tr>
+				<% cols = req.split('|') -%>
+<td><%= cols[0] -%></td>
+<td><%= cols[1] -%></td>
+<td><%= cols[3].gsub('"','') -%></td>
+<td><%= cols[4] -%></td>
+<td><%= cols[5] -%></td>
+<td width="700"><%= cols[2] -%></td>
+				<% cols.map{|x| "<td>#{x}</td>"}.join("") -%>
+				</tr>
+<tr><td class="tabledivider" colspan="10"/></tr>
+			<% end -%>
+		</table>
+
+<script src="http://www.quarkbase.com/javascripts/jquery-1.2.3.js" type="text/javascript"></script>
+<script src="/javascripts/application.js" type="text/javascript"></script>
+<script type="text/javascript">
+lastindex = <%= @currentlength -%>;
+</script>
+<% unless params[:code] -%>
+<script type="text/javascript">poll();</script>
+<%end-%>
+	</body>
+</html>

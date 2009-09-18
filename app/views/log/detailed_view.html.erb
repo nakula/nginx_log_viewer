@@ -1,0 +1,20 @@
+<html>
+	<head>
+		<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+		<title>show.html</title>
+	
+	</head>
+
+	<body id="" onload="">
+		<table>
+		<% @logs.each do |line| -%>
+			<tr>
+				<td><%= line.ipaddress -%>
+				<td><%= line.request_time -%>
+				<td width="480"><%= line.request_uri -%>
+				<td><%= line.response_code -%>
+			</tr>
+		<% end -%>
+		</table>
+	</body>
+</html>

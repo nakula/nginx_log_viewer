@@ -1,0 +1,11 @@
+--- 
+user: nakul
+cwd: /mnt/nginx.quarkbase.com/
+log_file: log/mongrel.log
+port: "10901"
+environment: production
+group: nakul
+address: localhost
+pid_file: tmp/pids/mongrel.pid
+servers: 1
+

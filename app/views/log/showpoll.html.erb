@@ -1,0 +1,17 @@
+
+			<% @all_reqs.each do |req| -%>
+				<tr>
+				<% cols = req.split('|') -%>
+<td><%= cols[0] -%></td>
+<td><%= cols[1] -%></td>
+<td><%= cols[3].gsub('"','') -%></td>
+<td><%= cols[4] -%></td>
+<td><%= cols[5] -%></td>
+<td width="700"><%= cols[2] -%></td>
+				<% cols.map{|x| "<td>#{x}</td>"}.join("") -%>
+				</tr>
+<tr><td class="tabledivider" colspan="10"/></tr>
+			<% end -%>
+<script type="text/javascript>
+lastindex = <%= @currentlength -%>;
+</script>
