@@ -56,7 +56,7 @@ namespace :nginx do
         :people_pages_urls => people_pages,
         :traffic_pages_urls => traffic_pages,
         :tag_pages_urls => tag_pages,
-        :crawler => site,
+        :crawler => crawlername,
         :cdate => Date.today - cdate
       )
     end

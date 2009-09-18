@@ -50,7 +50,7 @@ class LogController < ApplicationController
   end
 
   def stats
-    @stats = Log.find(:all, :conditions=>["cdate >= ?", Date.today - 7], :select=>"totalrequests, response_200, response_non_200, response_301, response_302, response_404, response_499, response_500, tag_pages, traffic_pages, people_pages, deals_pages, show_pages, orig_show_pages, mongrel_served_pages, avg_mongrel_time, crawler, cdate", :order=>"cdate desc")
+    @stats = Log.find(:all, :conditions=>["cdate >= ?", (Date.today - 7)], :select=>"totalrequests, response_200, response_non_200, response_301, response_302, response_404, response_499, response_500, tag_pages, traffic_pages, people_pages, deals_pages, show_pages, orig_show_pages, mongrel_served_pages, avg_mongrel_time, crawler, cdate", :order=>"cdate desc")
     @google = @stats.find_all{|x| x.crawler == 'Googlebot'}
     @msn = @stats.find_all{|x| x.crawler == 'msnbot'}
     @yahoo = @stats.find_all{|x| x.crawler == 'slurp'}
