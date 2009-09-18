@@ -51,18 +51,10 @@ class LogController < ApplicationController
   end
 
   def stats
-    @stat = {}
-    1.upto(14) do |day|
-      date = DateTime.strptime((Date.today-day).to_s + ":06:30:00", "%Y-%m-%d:%I:%M:%S")
-      @stat[(Date.today-day).to_s] = stat_helper(date)
-    end
-  end
-  
-  def detailed_view
-    date = DateTime.strptime(params[:date].to_s + ":06:30:00", "%Y-%m-%d:%I:%M:%S")
-    if params[:error]
-      @logs = Log.find(:all, :conditons => ["request_time >= ? AND request_time < ? AND response_code > 399 AND request_uri != '-'", date, date+1])
-    end
+    @stats = Log.find(:all, :conditions=>["cdate >= ?", Date.today - 7], :select=>"totalrequests, response_200, response_non_200, response_301, response_302, response_404, response_499, response_500, tag_pages, traffic_pages, people_pages, deals_pages, show_pages, orig_show_pages, mongrel_served_pages, avg_mongrel_time, crawler, cdate", :order=>"cdate desc")
+    @google = @stats.find_all{|x| x.crawler == 'Googlebot'}
+    @msn = @stats.find_all{|x| x.crawler == 'msnbot'}
+    @yahoo = @stats.find_all{|x| x.crawler == 'slurp'}
   end
   
 private

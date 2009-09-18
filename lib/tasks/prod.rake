@@ -1,6 +1,7 @@
 namespace :nginx do
   task :parse => :environment do
     filename = ENV['filename']
+    cdate = ENV['date'].to_i || 1
     {
       "google" => 'Googlebot',
       "msn" => 'msnbot',
@@ -56,7 +57,7 @@ namespace :nginx do
         :traffic_pages_urls => traffic_pages,
         :tag_pages_urls => tag_pages,
         :crawler => site,
-        :cdate => Date.today - 1
+        :cdate => Date.today - cdate
       )
     end
     

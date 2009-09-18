@@ -13,8 +13,8 @@
 					<td><a href='/show/<%= robot -%>'><%= robot -%></a></td>
 					<td><%= @log_count[robot][:now] -%></td>
 					<td><%= @log_count[robot][:now_errors] -%></td>
-					<td><a href='/showold/<%= robot -%>?db=<%= @log_count[robot][:today].date -%>'><%= @log_count[robot][:today].totalrequests -%>, <%= @log_count[robot][:today].response_non_200 -%></a></td>
-					<td><a href='/showold/<%= robot -%>?db=<%= @log_count[robot][:yesterday].date -%>'><%= @log_count[robot][:yesterday].totalrequests -%>, <%= @log_count[robot][:yesterday].response_non_200 -%></a></td>
+					<td><a href='/showold/<%= robot -%>?db=<%= @log_count[robot][:today].cdate -%>'><%= @log_count[robot][:today].totalrequests -%>, <%= @log_count[robot][:today].response_non_200 -%></a></td>
+					<td><a href='/showold/<%= robot -%>?db=<%= @log_count[robot][:yesterday].cdate -%>'><%= @log_count[robot][:yesterday].totalrequests -%>, <%= @log_count[robot][:yesterday].response_non_200 -%></a></td>
 				</tr>
 			<% end -%>
 		</table>

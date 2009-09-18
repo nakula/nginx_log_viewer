@@ -6,33 +6,27 @@
 	</head>
 
 	<body id="" onload="">
-		<table border="0" cellspacing="5" cellpadding="5">
+		<% ['google', 'msn', 'yahoo'].each do |cr| %>
+		<h2><%= cr -%></h2>
+		<table border="0" class='tabledouble' cellspacing="0" cellpadding="5">
 			<tr>
-				<th>Date</th><th>total</th><th>non 200</th><th>error</th>
-				<% ['Googlebot', 'msnbot', 'slurp'].each do |c| -%>
-					<th><%= c -%></th><th>non 200</th><th>error</th>
-				<% end -%>
+				<td>Date</td>
+			<% [:totalrequests, :response_200, :response_non_200, :response_301, :response_302, :response_404, :response_499, :response_500, :tag_pages, :traffic_pages, :people_pages, :deals_pages, :show_pages, :orig_show_pages, :mongrel_served_pages, :avg_mongrel_time].each do |t| -%>
+				<td><%= t.to_s.titleize%>
+			<% end -%>
 			</tr>
-			<% @stat.keys.each do |key| -%>
+			
+			
+			<% instance_variable_get("@#{cr}").each do |c| -%>
 				<tr>
-					<td><%= key -%></td>
-					<td><%= @stat[key][0] -%></td>
-					<td><%= @stat[key][1] -%></td>
-					<td><a href='/log/detailed_view?date=<%=key-%>&amp;error=true'><%= @stat[key][2] -%></a></td>
-					
-					<td><%= @stat[key][3] -%></td>
-					<td><%= @stat[key][4] -%></td>					
-					<td><%= @stat[key][5] -%></td>
-					
-					<td><%= @stat[key][6] -%></td>					
-					<td><%= @stat[key][7] -%></td>
-					<td><%= @stat[key][8] -%></td>					
-					
-					<td><%= @stat[key][9] -%></td>
-					<td><%= @stat[key][10] -%></td>
-					<td><%= @stat[key][11] -%></td>					
+					<td><%= c.send(:cdate) -%></td>
+				<% [:totalrequests, :response_200, :response_non_200, :response_301, :response_302, :response_404, :response_499, :response_500, :tag_pages, :traffic_pages, :people_pages, :deals_pages, :show_pages, :orig_show_pages, :mongrel_served_pages, :avg_mongrel_time].each do |t| -%>
+				<td><%= c.send(t) -%></td>
+				<% end -%>
 				</tr>
+				<tr><td class="tabledivider" colspan="10"/></tr>
 			<% end -%>
 		</table>
+		<% end -%>
 	</body>
 </html>

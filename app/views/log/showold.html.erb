@@ -11,7 +11,8 @@
 
 	<body id="" onload="">
 
-		
+		<h3>Googlebot</h3>
+		<h4><%= params[:db] -%></h4><br/>
 		<table border="0" class='tabledouble' cellspacing="0" cellpadding="5" >
 			<tr><td>Total Requests</td><td><%= @log.totalrequests -%></td><tr>
 			<tr><td class="tabledivider" colspan="10"/></tr>
@@ -31,10 +32,12 @@
 				<tr><td><%= p.capitalize -%> pages</td><td><%= @log.send("#{p}_pages") -%></td></tr>
 				<tr><td class="tabledivider" colspan="10"/></tr>
 			<% end -%>
+			<tr><td>Avg. Mongrel Response Time</td><td><%= @log.avg_mongrel_time -%></td></tr>
+			<tr><td class="tabledivider" colspan="10"/></tr>
 		</table>
 		
 		<% [301, 302, 404, 499, 500].each do |r| -%>
-		<table border="0" class='tabledouble' cellspacing="0" cellpadding="5" id='r<%= r -%>details'>
+		<table border="0" class='tabledouble' cellspacing="0" cellpadding="5" id='r<%= r -%>details' style='display:none;'>
 			<% @log.send("response_#{r}_urls").each do|x| -%>
 				<tr>
 				<% x.each do |col| -%>
@@ -46,8 +49,8 @@
 		<% end -%>
 
 		<% ["tag", "traffic", "people", "deals"].each do |p| -%>
-		<table border="0" class='tabledouble' cellspacing="0" cellpadding="5" id='p<%= p -%>details'>
-			<% @log.send("#{r}_pages_urls").each do |x| -%>
+		<table border="0" class='tabledouble' cellspacing="0" cellpadding="5" id='p<%= p -%>details' style='display:none;'>
+			<% @log.send("#{p}_pages_urls").each do |x| -%>
 				<tr><td><%= x -%></td></tr><tr><td class="tabledivider" colspan="10"/></tr>
 			<% end -%>
 		</table>
