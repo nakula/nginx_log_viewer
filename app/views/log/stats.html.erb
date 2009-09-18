@@ -1,21 +1,24 @@
 <html>
 	<head>
-		<meta http-equiv="Content-type" content="text/html; charset=utf-8">
-		<title>show.html</title>
+				<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+		<style>
+		.tabledouble {font-family:'lucida Grande';border:1px solid #CCCCCC;font-size:12px;margin:5px 10px 0;text-align:left;width:98%;}
+		.tabledivider {background-color:#CCCCCC;height:1px;padding:0;}
+		</style>
 	
 	</head>
 
 	<body id="" onload="">
 		<% ['google', 'msn', 'yahoo'].each do |cr| %>
 		<h2><%= cr -%></h2>
-		<table border="0" class='tabledouble' cellspacing="0" cellpadding="5">
+		<table class='tabledouble' cellspacing="0" cellpadding="5">
 			<tr>
-				<td>Date</td>
+				<th>Date</th>
 			<% [:totalrequests, :response_200, :response_non_200, :response_301, :response_302, :response_404, :response_499, :response_500, :tag_pages, :traffic_pages, :people_pages, :deals_pages, :show_pages, :orig_show_pages, :mongrel_served_pages, :avg_mongrel_time].each do |t| -%>
-				<td><%= t.to_s.titleize%>
+				<th><%= t.to_s.titleize%></th>
 			<% end -%>
 			</tr>
-			
+			<tr><td class="tabledivider" colspan="10"/></tr>
 			
 			<% instance_variable_get("@#{cr}").each do |c| -%>
 				<tr>
