@@ -1,5 +1,4 @@
 class LogController < ApplicationController
-
   before_filter :authenticate
   
   def authenticate
@@ -57,17 +56,4 @@ class LogController < ApplicationController
     @yahoo = @stats.find_all{|x| x.crawler == 'slurp'}
   end
   
-private
-  def stat_helper(day)
-    total_reqs = Log.count(:conditions => ["request_time >= ? AND request_time < ?", day, (day+1)])
-    non_200 = Log.count(:conditions => ["request_time >= ? AND request_time < ? AND response_code != 200", day, (day + 1)])
-    error = Log.count(:conditions => ["request_time >= ? AND request_time < ? AND response_code > 399 AND request_uri != '-'", day, (day + 1)])
-    r = [total_reqs, non_200, error]
-    ["Googlebot", "msnbot", 'slurp'].each do |crawler|
-      r << Log.count(:conditions => ["request_time >= ? AND request_time < ? AND user_agent='#{crawler}'", day, (day+1)])
-      r << Log.count(:conditions => ["request_time >= ? AND request_time < ? AND response_code != 200 AND user_agent = '#{crawler}'", day, (day + 1)])
-      r << Log.count(:conditions => ["request_time >= ? AND request_time < ? AND response_code > 399 AND user_agent = '#{crawler}'", day, (day + 1)])
-    end
-    r
-  end
 end

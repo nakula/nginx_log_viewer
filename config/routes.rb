@@ -35,6 +35,7 @@ ActionController::Routing::Routes.draw do |map|
   map.connect '/show/:id', :controller=>"log", :action=>"show" ,:id=>/(.|\.)*/
   map.connect '/showpoll/:id', :controller=>"log", :action=>"showpoll"
   map.connect '/showold/:id', :controller=>"log", :action=>"showold"
+  map.connect '/stats', :controller => 'log', :action => 'stats'
 
   # See how all your routes lay out with "rake routes"
 
