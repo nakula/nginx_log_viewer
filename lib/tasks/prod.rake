@@ -37,7 +37,7 @@ namespace :nginx do
       a0time_requests = `cat #{filename} | grep '#{crawlername}' | awk 'BEGIN { FS = "[\\[ ]" } $10 == "\\"200\\"" {print $1 "|"  $5 "|" $8 "|" $10 "|" $18 "|" $22}'`.split("\n").map{|x| x.split("|")}
       served_by_mongrel = a0time_requests.find_all{|x| if x[5].nil?; puts x.inspect;next;end; x[5].strip != '-' && x[5].strip != '200'}
       t = served_by_mongrel.map{|x| x[5].to_f}
-      avg_time = t.sum/served_by_mongrel.length
+      avg_time = t.sum/served_by_mongrel.length rescue 0
       
       Log.create!(
         :totalrequests => totalrequests,
