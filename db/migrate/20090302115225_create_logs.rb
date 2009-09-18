@@ -5,6 +5,7 @@ class CreateLogs < ActiveRecord::Migration
       t.text :response_301_urls, :response_302_urls, :response_404_urls, :response_499_urls, :response_500_urls, :tag_pages_urls, :traffic_pages_urls, :people_pages_urls, :deals_pages_urls
       t.float :avg_mongrel_time
       t.string :crawler
+      t.date :cdate
       t.timestamps
     end
   end

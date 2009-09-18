@@ -23,16 +23,6 @@ namespace :nginx do
       deals_pages = `cat #{filename} | grep '#{crawlername}' | awk 'BEGIN { FS = "[\\[ ]" } $8 ~ /^\\/deals\\/[^\\/]+$/ {print $8}'`.split("\n")
       orig_show_pages = `cat #{filename} | grep '#{crawlername}' | awk 'BEGIN { FS = "[\\[ ]" } $8 ~ /^\\/show\\/.+$/ {print $8}' | wc -l`.strip
 
-      puts 'G'
-      puts totalrequests
-      puts a200responses
-      puts non200coount
-      puts a404urls.length
-      puts a301urls.length
-      puts a302urls.length
-      puts a499urls.length
-      puts a500urls.length
-
       # time based stats
       a0time_requests = `cat #{filename} | grep '#{crawlername}' | awk 'BEGIN { FS = "[\\[ ]" } $10 == "\\"200\\"" {print $1 "|"  $5 "|" $8 "|" $10 "|" $18 "|" $22}'`.split("\n").map{|x| x.split("|")}
       served_by_mongrel = a0time_requests.find_all{|x| if x[5].nil?; puts x.inspect;next;end; x[5].strip != '-' && x[5].strip != '200'}
@@ -65,19 +55,10 @@ namespace :nginx do
         :people_pages_urls => people_pages,
         :traffic_pages_urls => traffic_pages,
         :tag_pages_urls => tag_pages,
-        :crawler => site
+        :crawler => site,
+        :cdate => Date.today - 1,
       )
     end
-    
-    
-    puts "Non 200 pages : #{urls_for_non_200_responses.inspect.length}"
-    puts tag_pages.length.to_s + " : " + tag_pages.inspect.length.to_s
-    puts traffic_pages.length.to_s + " : " + traffic_pages.inspect.length.to_s
-    puts people_pages.length.to_s + " : " + people_pages.inspect.length.to_s
-    puts show_pages
-    puts '/show pages : ' + orig_show_pages.to_s
-    puts 'MOngrel avg time : ' + avg_time.to_s
-    puts 'request served by mongrel : ' + served_by_mongrel.length.to_s
     
     
   end

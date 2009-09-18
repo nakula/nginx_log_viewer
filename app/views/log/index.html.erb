@@ -6,15 +6,15 @@
 	</head>
 
 	<body id="" onload="">
-		<table border="0" cellspacing="0" cellpadding="0">
+		<table border="0" class='tabledouble' cellspacing="0" cellpadding="5" >
 			<tr><th>Crawler</th><th>Access From log</th><th>non 200 from log</th><th>From db today</th><th>from db yesterday</th></tr>
 			<% ROBOTLIST.each do |robot| -%>
 				<tr>
 					<td><a href='/show/<%= robot -%>'><%= robot -%></a></td>
 					<td><%= @log_count[robot][:now] -%></td>
 					<td><%= @log_count[robot][:now_errors] -%></td>
-					<td><a href='/show/<%= robot -%>?db=today'><%= @log_count[robot][:today] -%></a></td>
-					<td><a href='/show/<%= robot -%>?db=yesterday'><%= @log_count[robot][:yesterday] -%></a></td>
+					<td><a href='/showold/<%= robot -%>?db=<%= @log_count[robot][:today].date -%>'><%= @log_count[robot][:today].totalrequests -%>, <%= @log_count[robot][:today].response_non_200 -%></a></td>
+					<td><a href='/showold/<%= robot -%>?db=<%= @log_count[robot][:yesterday].date -%>'><%= @log_count[robot][:yesterday].totalrequests -%>, <%= @log_count[robot][:yesterday].response_non_200 -%></a></td>
 				</tr>
 			<% end -%>
 		</table>
