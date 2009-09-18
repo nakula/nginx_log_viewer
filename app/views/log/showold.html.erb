@@ -1,0 +1,67 @@
+<html>
+	<head>
+		<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+<style>
+.tabledouble {font-family:'lucida Grande';border:1px solid #CCCCCC;font-size:12px;margin:5px 10px 0;text-align:left;width:98%;}
+.tabledivider {background-color:#CCCCCC;height:1px;padding:0;}
+</style>
+		<title>show.html</title>
+	
+	</head>
+
+	<body id="" onload="">
+
+		
+		<table border="0" class='tabledouble' cellspacing="0" cellpadding="5" >
+			<tr><td>Total Requests</td><td><%= @log.totalrequests -%></td><tr>
+			<tr><td class="tabledivider" colspan="10"/></tr>
+			<tr><td>200 Responses</td><td><%= @log.response_200 -%></td><tr>
+			<tr><td class="tabledivider" colspan="10"/></tr>
+			<tr><td>Non 200 Responses</td><td><%= @log.response_non_200 -%></td><tr>
+			<tr><td class="tabledivider" colspan="10"/></tr>
+			<% [301, 302, 404, 499, 500].each do |r| -%>
+				<tr><td><%= r -%> Responses</td><td><a id='r<%= r -%>' href="javascript:void(0);"><%= @log.send("response_#{r}") -%></a></td><tr>
+				<tr><td class="tabledivider" colspan="10"/></tr>
+			<% end -%>
+			<% ["tag", "traffic", "people", "deals"].each do |p| -%>
+				<tr><td><%= p.capitalize -%> pages</td><td><a id='p<%= p-%>' href='javascript:void(0);'><%= @log.send("#{p}_pages") -%></a></td></tr>
+				<tr><td class="tabledivider" colspan="10"/></tr>
+			<% end -%>
+			<% ["show", "orig_show", "mongrel_served"].each do |p| -%>
+				<tr><td><%= p.capitalize -%> pages</td><td><%= @log.send("#{p}_pages") -%></td></tr>
+				<tr><td class="tabledivider" colspan="10"/></tr>
+			<% end -%>
+		</table>
+		
+		<% [301, 302, 404, 499, 500].each do |r| -%>
+		<table border="0" class='tabledouble' cellspacing="0" cellpadding="5" id='r<%= r -%>details'>
+			<% @log.send("response_#{r}_urls").each do|x| -%>
+				<tr>
+				<% x.each do |col| -%>
+					<td><%= col -%></td>
+				<% end -%>
+				</tr><tr><td class="tabledivider" colspan="10"/></tr>
+			<% end -%>
+		</table>
+		<% end -%>
+
+		<% ["tag", "traffic", "people", "deals"].each do |p| -%>
+		<table border="0" class='tabledouble' cellspacing="0" cellpadding="5" id='p<%= p -%>details'>
+			<% @log.send("#{r}_pages_urls").each do |x| -%>
+				<tr><td><%= x -%></td></tr><tr><td class="tabledivider" colspan="10"/></tr>
+			<% end -%>
+		</table>
+		<% end -%>
+
+		<script src="http://www.quarkbase.com/javascripts/jquery-1.2.3.js" type="text/javascript"></script>
+		<script type="text/javascript" charset="utf-8">
+			<% [301, 302, 404, 499, 500].each do |r| -%>
+				$("#r<%= r -%>").toggle(function(){$('#r<%= r -%>details').show();}, function(){$('#r<%= r -%>details').hide();});
+			<% end -%>
+			<% ["tag", "traffic", "people", "deals"].each do |p| -%>
+				$("#p<%= p -%>").toggle(function(){$('#p<%= p -%>details').show();}, function(){$('#p<%= p -%>details').hide();});
+			<% end -%>
+		</script>
+
+	</body>
+</html>

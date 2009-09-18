@@ -25,7 +25,7 @@ namespace :nginx do
 
       # time based stats
       a0time_requests = `cat #{filename} | grep '#{crawlername}' | awk 'BEGIN { FS = "[\\[ ]" } $10 == "\\"200\\"" {print $1 "|"  $5 "|" $8 "|" $10 "|" $18 "|" $22}'`.split("\n").map{|x| x.split("|")}
-      served_by_mongrel = a0time_requests.find_all{|x| if x[5].nil?; puts x.inspect;next;end; x[5].strip != '-' && x[5].strip != '200'}
+      served_by_mongrel = a0time_requests.find_all{|x| if x[5].nil?; next;end; x[5].strip != '-' && x[5].strip != '200'}
       t = served_by_mongrel.map{|x| x[5].to_f}
       avg_time = t.sum/served_by_mongrel.length rescue 0
       
@@ -56,7 +56,7 @@ namespace :nginx do
         :traffic_pages_urls => traffic_pages,
         :tag_pages_urls => tag_pages,
         :crawler => site,
-        :cdate => Date.today - 1,
+        :cdate => Date.today - 1
       )
     end
     

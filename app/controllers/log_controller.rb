@@ -23,7 +23,7 @@ class LogController < ApplicationController
 
     ROBOTLIST.each do |robot|
       @log_count[robot][:now] = `cat  #{NGINX_LOGFILE} | grep -i \"#{robot}\" | wc -l`
-      @log_count[robot][:now_errors] = `cat  #{NGINX_LOGFILE} | grep -i \"#{robot}\" | awk 'BEGIN { FS = \"[\[ ]\" } $10 != 200 {print $0}' | wc -l`
+      @log_count[robot][:now_errors] = `cat  #{NGINX_LOGFILE} | grep -i \"#{robot}\" | awk 'BEGIN { FS = \"[\[ ]\" } $10 != "\\"200\\"" {print $0}' | wc -l`
     end
   end
   
@@ -46,7 +46,7 @@ class LogController < ApplicationController
   end
 
   def showpoll
-      @all_reqs = `cat #{NGINX_LOGFILE} | grep -i #{params[:id]} | awk 'BEGIN { FS = "[\[ ]" } {if(NR>#{params[:start]}) print $1 "|"  $5 "|" $8 "|" $10 "|" $18 "|" $22}'`.split("\n")
+    @all_reqs = `cat #{NGINX_LOGFILE} | grep -i #{params[:id]} | awk 'BEGIN { FS = "[\[ ]" } {if(NR>#{params[:start]}) print $1 "|"  $5 "|" $8 "|" $10 "|" $18 "|" $22}'`.split("\n")
     @currentlength = (params[:start] || "0").to_i + @all_reqs.length
   end
 
