@@ -12,12 +12,12 @@ class LogController < ApplicationController
     @log_count = {}
     ROBOTLIST.each do |robot|
       @log_count[robot] = {}
-      @log_count[robot][:today] = Log.find(:first, :conditions=>["date = ? AND crawler = ?", Date.today - 1, robot], :select => "totalrequests, response_non_200, date")
+      @log_count[robot][:today] = Log.find(:first, :conditions=>["cdate = ? AND crawler = ?", Date.today - 1, robot], :select => "totalrequests, response_non_200, cdate")
       if @log_count[robot][:today].nil?
-        @log_count[robot][:today] = Log.find(:first, :conditions=>["date = ? AND crawler = ?", Date.today - 2, robot], :select => "totalrequests, response_non_200, date")
-        @log_count[robot][:yesterday] = Log.find(:first, :conditions=>["date = ? AND crawler = ?", Date.today - 2, robot], :select => "totalrequests, response_non_200, date")
+        @log_count[robot][:today] = Log.find(:first, :conditions=>["cdate = ? AND crawler = ?", Date.today - 2, robot], :select => "totalrequests, response_non_200, cdate")
+        @log_count[robot][:yesterday] = Log.find(:first, :conditions=>["cdate = ? AND crawler = ?", Date.today - 2, robot], :select => "totalrequests, response_non_200, cdate")
       else
-        @log_count[robot][:yesterday] = Log.find(:first, :conditions=>["date = ? AND crawler = ?", Date.today - 2, robot], :select => "totalrequests, response_non_200, date")
+        @log_count[robot][:yesterday] = Log.find(:first, :conditions=>["cdate = ? AND crawler = ?", Date.today - 2, robot], :select => "totalrequests, response_non_200, cdate")
       end
     end
 
@@ -30,7 +30,7 @@ class LogController < ApplicationController
   def showold
     @crawler = params[:id]
     @date = params[:db]
-    @log = Log.find_by_date_and_crawler(@date, @crawler)
+    @log = Log.find_by_cdate_and_crawler(@date, @crawler)
   end
   
   def show
